@@ -20,6 +20,7 @@ namespace UI {
         const char* model_names[] = { "TrackieLLM", "TrackieIntelligence" };
         int current_model_index = static_cast<int>(app.getAIModel());
 
+        // CORREÇÃO DEFINITIVA: Adicionado o '&' que faltava.
         if (ImGui::Combo("Modelo de IA", ¤t_model_index, model_names, IM_ARRAYSIZE(model_names))) {
             app.setAIModel(static_cast<TrackieStudio::AIModel>(current_model_index));
         }

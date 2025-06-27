@@ -43,7 +43,7 @@ add_executable(
         TrackieStudio
         src/main.cpp
         src/core/app.cpp
-        src/ui/splash_screen.cpp
+        src/ui/splash_screen.c
         src/ui/main_view.cpp
         src/ui/left_sidebar.cpp
         src/ui/right_sidebar.cpp
