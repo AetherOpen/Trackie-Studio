@@ -45,6 +45,9 @@ add_executable(
         src/core/app.cpp
         src/ui/splash_screen.cpp
         src/ui/main_view.cpp
+        src/ui/left_sidebar.cpp
+        src/ui/right_sidebar.cpp
+        src/ui/center_panel.cpp
 )
 
 # --- MUDANÇA 1: Adicionar os fontes do ImGui diretamente ao nosso executável ---

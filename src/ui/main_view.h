@@ -1,21 +1,27 @@
 // -----------------------------------------------------------------------------
-// main_view.h
+// main_view.h (Versão 2)
 //
-// Declaração da função para renderizar a view principal da aplicação,
-// inspirada no layout do Google AI Studio.
+// Declaração da função para renderizar a view principal.
+// Agora aceita uma referência para o estado da aplicação.
 // -----------------------------------------------------------------------------
 
-#pragma once // Garante que este arquivo seja incluído apenas uma vez
+#pragma once
+
+// Forward Declaration:
+// Diz ao compilador que uma classe chamada 'App' existe dentro do namespace
+// 'TrackieStudio', sem precisar incluir o arquivo "core/app.h" inteiro.
+// Isso previne erros de "inclusão circular" e acelera a compilação.
+namespace TrackieStudio {
+    class App;
+}
 
 namespace UI {
 
     /**
      * @brief Desenha a interface principal da aplicação.
      *
-     * Esta função é chamada a cada frame depois que a tela de splash
-     * é concluída. Ela é responsável por desenhar a barra lateral (sidebar)
-     * e a área de conteúdo principal.
+     * @param app Uma referência ao objeto principal da aplicação que contém todo o estado da UI.
      */
-    void RenderMainView();
+    void RenderMainView(TrackieStudio::App& app);
 
 } // namespace UI

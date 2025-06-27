@@ -1,47 +1,43 @@
 // -----------------------------------------------------------------------------
-// app.cpp
+// app.cpp (Versão 2)
 //
-// Implementação da classe principal da aplicação, TrackieStudio::App.
+// Implementação da classe App. Agora inicializa todo o estado da UI
+// e passa a si mesma como referência para a função de renderização da MainView.
 // -----------------------------------------------------------------------------
 
 #include "core/app.h"
-
-// Incluímos os cabeçalhos dos nossos módulos de UI.
-// Estes arquivos ainda não existem, mas os criaremos nos próximos passos.
-// Eles conterão as funções que desenham as telas específicas.
 #include "ui/splash_screen.h"
-#include "ui/main_view.h"
+#include "ui/main_view.h" // Este arquivo será modificado a seguir
 
-#include <stdio.h> // Para printf (debug)
+#include <stdio.h>
 
 namespace TrackieStudio {
 
-    // Implementação do construtor
-    App::App() {
-        // Ao criar a aplicação, definimos a tela inicial como a Splash Screen.
-        m_currentScreen = ScreenState::SplashScreen;
-        printf("TrackieStudio::App inicializada. Tela atual: SplashScreen\n");
+    // Implementação do construtor usando lista de inicialização
+    App::App() :
+        m_currentScreen(ScreenState::SplashScreen),
+        m_operatingMode(OperatingMode::Trackie), // Modo padrão: Trackie
+        m_aiModel(AIModel::TrackieLLM),          // Modelo padrão: TrackieLLM
+        m_inputMode(InputMode::AudioAndCamera),  // Entrada padrão: Audio e Camera
+        m_turnCoverage(true),                    // Alavancas (valores padrão)
+        m_affectiveDialog(false),
+        m_proactiveAudio(true),
+        m_toolDistanceMeasurement(true),         // Ferramentas (valores padrão)
+        m_toolAdvancedDetection(false),
+        m_toolFaceRecognition(false),
+        m_selectedCoreModel(0)                   // Nenhum modelo do dropdown selecionado por padrão
+    {
+        printf("TrackieStudio::App (V2) inicializada. Estado padrão configurado.\n");
     }
 
-    // Implementação do destrutor
     App::~App() {
-        // Este espaço pode ser usado para limpeza de recursos no futuro.
         printf("TrackieStudio::App finalizada.\n");
     }
 
-
-    // Implementação do método principal de renderização
     void App::renderUI() {
-        // Usamos um switch para controlar qual tela renderizar
-        // com base no valor de m_currentScreen.
         switch (m_currentScreen) {
             case ScreenState::SplashScreen: {
-                // Chamamos a função que desenha a tela de splash.
-                // Esta função (que criaremos a seguir) retornará 'true' quando sua
-                // animação/tempo de espera terminar.
                 bool splashFinished = UI::RenderSplashScreen();
-
-                // Se a tela de splash terminou, mudamos o estado para a tela principal.
                 if (splashFinished) {
                     m_currentScreen = ScreenState::MainView;
                     printf("Mudando de SplashScreen para MainView\n");
@@ -50,9 +46,10 @@ namespace TrackieStudio {
             }
 
             case ScreenState::MainView: {
-                // Uma vez no estado MainView, simplesmente chamamos a função
-                // que desenha a interface principal da aplicação.
-                UI::RenderMainView();
+                // MUDANÇA CRÍTICA:
+                // Agora passamos uma referência do objeto 'App' inteiro para a MainView.
+                // Isso dá a toda a UI acesso ao estado centralizado.
+                UI::RenderMainView(*this);
                 break;
             }
         }
