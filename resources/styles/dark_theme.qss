@@ -1,0 +1,175 @@
+/* resources/styles/dark_theme.qss */
+
+/* Estilo geral da Janela e Widgets base */
+QWidget {
+    background-color: #000000; /* Fundo preto padrão */
+    color: #FFFFFF;            /* Texto branco padrão */
+    font-family: "Sans-serif";
+    font-size: 13px;
+}
+
+/* Janela Principal */
+QMainWindow {
+    background-color: #000000;
+}
+
+/* Estilo para painéis como os sidebars e o painel central */
+QFrame, QWidget#centralPanelWidget {
+    background-color: #333333; /* Cinza escuro para painéis */
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+}
+
+/* Estilo para botões */
+QPushButton {
+    background-color: #444444; /* Cinza médio */
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #555555; /* Efeito hover */
+}
+
+QPushButton:pressed {
+    background-color: #3a3a3a; /* Efeito de clique */
+}
+
+QPushButton:disabled {
+    background-color: #2a2a2a; /* Botão desabilitado */
+    color: #777777;
+    border-color: #555555;
+}
+
+/* Estilo para ComboBoxes (Dropdowns) */
+QComboBox {
+    background-color: #333333;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+QComboBox:hover {
+    border-color: #888888;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: #FFFFFF;
+    border-left-style: solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/down_arrow.png); /* Placeholder - precisaremos de um ícone */
+}
+
+QComboBox QAbstractItemView { /* Estilo da lista de opções */
+    background-color: #444444;
+    color: #FFFFFF;
+    selection-background-color: #555555;
+    border: 1px solid #FFFFFF;
+}
+
+
+/* Estilo para Sliders */
+QSlider::groove:horizontal {
+    border: 1px solid #FFFFFF;
+    height: 4px;
+    background: #333333;
+    margin: 2px 0;
+    border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0; /* Centraliza o manipulador na trilha */
+    border-radius: 8px;
+}
+
+/* Rótulos de texto */
+QLabel {
+    background-color: transparent; /* Rótulos devem ter fundo transparente */
+    color: #CCCCCC; /* Cinza claro para textos de rótulo */
+    border: none;
+    font-size: 12px;
+}
+
+QLabel#titleLabel { /* Um ID específico para títulos maiores */
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+/* Estilo para o painel da sidebar esquerda */
+/* Usamos o nome do objeto que definimos em MainWindow.cpp */
+QFrame#leftSidebarPanel {
+    background-color: #000000;
+    border: none; /* Remove a borda geral */
+    border-right: 1px solid #FFFFFF; /* Adiciona apenas a borda direita */
+    border-radius: 0px; /* Sidebars não devem ter cantos arredondados */
+}
+
+/* Estilo para a barra de ferramentas inferior */
+#bottomToolbar {
+    background-color: #FFFFFF;
+}
+
+/* Estilo para os placeholders de ícones na barra inferior */
+#bottomToolbar QLabel {
+    color: #000000; /* Texto preto */
+    font-weight: bold;
+    font-size: 16px;
+}
+/* A área central da janela, que tem fundo branco */
+QFrame#centralPanelWidget {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+/* O painel cinza escuro dentro da área central */
+QFrame#contentPanel {
+    background-color: #222222;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+}
+
+/* Rótulos dentro do painel central */
+#contentPanel QLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    border: none; /* Sobrescreve estilo geral de QLabel se houver */
+}
+
+/* Estilo para o painel da sidebar direita */
+QFrame#rightSidebarPanel {
+    background-color: #000000;
+    border: none;
+    border-left: 1px solid #FFFFFF;
+    border-radius: 0px;
+}
+
+/* Estilo para os CheckBoxes parecerem toggles (simplificado) */
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/icons/toggle_off.png); /* Placeholder */
+}
+QCheckBox::indicator:checked {
+    image: url(:/icons/toggle_on.png); /* Placeholder */
+}
