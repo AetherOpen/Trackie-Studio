@@ -70,7 +70,7 @@ void MainWindow::connectSignalsAndSlots()
             m_centralPanel, &CentralPanel::updateForModel);
 
     // Conecta a mudança de modo no RightSidebar ao slot correspondente no CentralPanel.
-    connect(m_rightSidebar, &RightSidebar::modeChanged,
+    connect(m_rightSidebar, &RightSidebar::outputFormatChanged,
             m_centralPanel, &CentralPanel::updateForMode);
 
     // COMENTÁRIO PARA O FUTURO:

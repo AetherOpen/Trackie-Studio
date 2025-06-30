@@ -1,106 +1,110 @@
 // src/components/rightsidebar/rightsidebar.cpp
-// Implementação da classe RightSidebar.
+// Implementação da classe RightSidebar com layout e widgets customizados.
 
 #include "rightsidebar.h"
 
-// Includes para os widgets e layouts do Qt.
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QComboBox>
-#include <QSlider>
 #include <QLabel>
-#include <QCheckBox>
-#include <QGroupBox> // Usaremos QGroupBox para agrupar visualmente as seções.
+#include <QPushButton>
+#include <QButtonGroup>
 
-RightSidebar::RightSidebar(QWidget *parent)
-    : QFrame(parent)
+RightSidebar::RightSidebar(QWidget *parent) : QFrame(parent)
 {
-    // Define o objectName para que o estilo da borda esquerda seja aplicado via QSS.
     setObjectName("RightSidebar");
+    setFixedWidth(300); // <-- MUDANÇA 1: Define uma largura fixa para a barra lateral.
 
-    // Chama a função auxiliar para construir a UI.
     setupUi();
 }
 
-RightSidebar::~RightSidebar()
+RightSidebar::~RightSidebar() {}
+
+// A função createToggleRow permanece a mesma...
+QWidget* RightSidebar::createToggleRow(const QString &text)
 {
-    // Memória gerenciada pelo sistema de parentesco do Qt.
+    QWidget *row = new QWidget(this);
+    QHBoxLayout *layout = new QHBoxLayout(row);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+
+    QLabel *label = new QLabel(text, row);
+    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+    ToggleSwitch *toggle = new ToggleSwitch(row);
+
+    layout->addWidget(label);
+    layout->addWidget(toggle);
+
+    if (text == "Turn coverage") m_turnCoverageToggle = toggle;
+    else if (text == "Affective dialog") m_affectiveDialogToggle = toggle;
+    else if (text == "Proactive audio") m_proactiveAudioToggle = toggle;
+    else if (text == "Medição de distâncias") m_distanceToolToggle = toggle;
+    else if (text == "Detecção avançada de objetos") m_objectDetectionToolToggle = toggle;
+    else if (text == "Reconhecer Rostos") m_faceRecognitionToolToggle = toggle;
+
+    return row;
 }
+
 
 void RightSidebar::setupUi()
 {
-    // 1. Layout Principal
     m_mainLayout = new QVBoxLayout(this);
     m_mainLayout->setContentsMargins(15, 20, 15, 20);
-    m_mainLayout->setSpacing(20); // Espaçamento maior entre as seções.
+    m_mainLayout->setSpacing(15);
 
-    // --- 2. Seção de Seleção de Modelo ---
-    m_modelLabel = new QLabel("MODELO", this);
-    m_modelLabel->setObjectName("SidebarLabel"); // Para estilização (maiúsculo, etc.)
+    QLabel *titleLabel = new QLabel("Run settings", this);
+    titleLabel->setObjectName("SidebarTitle");
+    m_mainLayout->addWidget(titleLabel);
 
     m_modelSelector = new QComboBox(this);
     m_modelSelector->setObjectName("ConfigSelector");
     m_modelSelector->addItem("TrackieLLM");
     m_modelSelector->addItem("TrackieIntelligence");
-    // Conecta a mudança de item ao nosso slot, que emitirá o sinal global.
-    connect(m_modelSelector, &QComboBox::textActivated, this, &RightSidebar::onModelSelectionChanged);
-
-    m_mainLayout->addWidget(m_modelLabel);
+    connect(m_modelSelector, &QComboBox::textActivated, this, &RightSidebar::modelChanged);
     m_mainLayout->addWidget(m_modelSelector);
 
-    // --- 3. Seção de Seleção de Modo ---
-    m_modeLabel = new QLabel("MODO", this);
-    m_modeLabel->setObjectName("SidebarLabel");
+    // --- MUDANÇA 2: Substituição do seletor de formato de saída ---
+    QLabel *outputLabel = new QLabel("Output format", this);
+    outputLabel->setObjectName("SidebarLabel");
+    m_mainLayout->addWidget(outputLabel);
 
-    m_modeSelector = new QComboBox(this);
-    m_modeSelector->setObjectName("ConfigSelector");
-    m_modeSelector->addItem("Audio only");
-    m_modeSelector->addItem("Audio and Camera");
-    m_modeSelector->addItem("Camera only");
-    connect(m_modeSelector, &QComboBox::textActivated, this, &RightSidebar::onModeSelectionChanged);
+    // Removemos o QButtonGroup e os QPushButtons e usamos um QComboBox.
+    m_outputFormatSelector = new QComboBox(this);
+    m_outputFormatSelector->setObjectName("OutputFormatSelector"); // Nome especial para QSS
+    m_outputFormatSelector->addItem("Audio & camera");
+    m_outputFormatSelector->addItem("Camera");
+    m_outputFormatSelector->addItem("Audio");
+    // Conectamos o novo seletor ao mesmo sinal de antes.
+    connect(m_outputFormatSelector, &QComboBox::textActivated, this, &RightSidebar::outputFormatChanged);
+    m_mainLayout->addWidget(m_outputFormatSelector);
+    // --- FIM DA MUDANÇA 2 ---
 
-    m_mainLayout->addWidget(m_modeLabel);
-    m_mainLayout->addWidget(m_modeSelector);
+    QLabel *voiceLabel = new QLabel("Voice", this);
+    voiceLabel->setObjectName("SidebarLabel");
+    m_mainLayout->addWidget(voiceLabel);
+    m_voiceSelector = new QComboBox(this);
+    m_voiceSelector->setObjectName("ConfigSelector");
+    m_voiceSelector->addItem("mainmale");
+    m_voiceSelector->addItem("Padrão Feminino");
+    m_voiceSelector->addItem("Padrão Masculino");
+    connect(m_voiceSelector, &QComboBox::textActivated, this, &RightSidebar::voiceChanged);
+    m_mainLayout->addWidget(m_voiceSelector);
 
-    // --- 4. Seção de Sliders (Alavancas) ---
-    m_gainLabel = new QLabel("Ganho", this);
-    m_gainSlider = new QSlider(Qt::Horizontal, this);
+    m_mainLayout->addSpacing(20);
 
-    m_contrastLabel = new QLabel("Contraste", this);
-    m_contrastSlider = new QSlider(Qt::Horizontal, this);
+    m_mainLayout->addWidget(createToggleRow("Turn coverage"));
+    m_mainLayout->addWidget(createToggleRow("Affective dialog"));
+    m_mainLayout->addWidget(createToggleRow("Proactive audio"));
 
-    m_mainLayout->addWidget(m_gainLabel);
-    m_mainLayout->addWidget(m_gainSlider);
-    m_mainLayout->addWidget(m_contrastLabel);
-    m_mainLayout->addWidget(m_contrastSlider);
+    m_mainLayout->addSpacing(20);
 
-    // --- 5. Seção de Ferramentas (Tools) ---
-    m_toolsLabel = new QLabel("TOOLS", this);
-    m_toolsLabel->setObjectName("SidebarLabel");
+    QLabel *toolsLabel = new QLabel("Tools", this);
+    toolsLabel->setObjectName("SidebarLabel");
+    m_mainLayout->addWidget(toolsLabel);
+    m_mainLayout->addWidget(createToggleRow("Medição de distâncias"));
+    m_mainLayout->addWidget(createToggleRow("Detecção avançada de objetos"));
+    m_mainLayout->addWidget(createToggleRow("Reconhecer Rostos"));
 
-    m_distanceToolToggle = new QCheckBox("Medição de distâncias", this);
-    m_objectDetectionToolToggle = new QCheckBox("Detecção avançada de objetos", this);
-    m_faceRecognitionToolToggle = new QCheckBox("Reconhecer Rostos", this);
-
-    m_mainLayout->addWidget(m_toolsLabel);
-    m_mainLayout->addWidget(m_distanceToolToggle);
-    m_mainLayout->addWidget(m_objectDetectionToolToggle);
-    m_mainLayout->addWidget(m_faceRecognitionToolToggle);
-
-    // Adiciona um espaçador no final para empurrar todo o conteúdo para o topo.
     m_mainLayout->addStretch();
-}
-
-// --- Implementação dos Slots ---
-
-void RightSidebar::onModelSelectionChanged(const QString &text)
-{
-    // Este slot é ativado pelo QComboBox. Sua única função é reemitir
-    // a informação como um sinal público da classe RightSidebar.
-    emit modelChanged(text);
-}
-
-void RightSidebar::onModeSelectionChanged(const QString &text)
-{
-    // Mesma lógica do slot acima.
-    emit modeChanged(text);
 }
