@@ -1,0 +1,26 @@
+<!-- resources/resources.qrc -->
+<!-- Arquivo de Recursos do Qt. Ele agrupa assets para serem compilados no executável. -->
+
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/">
+        <!-- O prefixo "/" é o padrão e nos permite acessar os arquivos no código
+             usando o caminho ":/caminho/do/arquivo.ext". -->
+
+        <!-- 1. Folha de Estilos (Stylesheet) -->
+        <!-- Este é o arquivo que define todo o nosso tema escuro. -->
+        <file>styles/dark_theme.qss</file>
+
+        <!--
+        COMENTÁRIO PARA INTEGRAÇÃO FUTURA:
+        À medida que criarmos ou baixarmos os ícones, eles serão adicionados aqui.
+        O atributo 'alias' é útil para dar um nome mais simples ao recurso.
+
+        Exemplo para os ícones:
+        <file alias="icon_trackie">icons/trackie_logo.png</file>
+        <file alias="icon_spotway">icons/spotway_logo.png</file>
+        <file alias="icon_collapse">icons/collapse_arrow.svg</file>
+        <file alias="icon_expand">icons/expand_arrow.svg</file>
+        -->
+
+    </qresource>
+</RCC>
