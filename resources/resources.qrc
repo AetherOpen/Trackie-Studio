@@ -9,6 +9,18 @@
         <!-- 1. Folha de Estilos (Stylesheet) -->
         <!-- Este é o arquivo que define todo o nosso tema escuro. -->
         <file>styles/dark_theme.qss</file>
+        <!-- ... dentro da tag <qresource> ... -->
+        <file>icons/box/box-ico.png</file>
+        <file>icons/box/box-ico0.png</file>
+        <file>icons/box/box-ico1.png</file>
+        <file>icons/box/box-ico2.png</file>
+        <file>icons/box/box-ico3.png</file>
+        <file>icons/box/box-ico4.png</file>
+        <file>icons/box/box-ico5.png</file>
+        <file>icons/box/box-ico6.png</file>
+        <file>icons/box/box-ico7.png</file>
+        <file>icons/box/box-ico8.png</file>
+        <file>icons/box/box-ico9.png</file>
 
         <!--
         COMENTÁRIO PARA INTEGRAÇÃO FUTURA:

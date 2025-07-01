@@ -1,5 +1,5 @@
 // src/components/centralpanel/centralpanel.h
-// Definição da classe CentralPanel, a área de interação principal.
+// Definição do CentralPanel com a barra de ferramentas minimalista.
 
 #ifndef CENTRALPANEL_H
 #define CENTRALPANEL_H
@@ -7,10 +7,8 @@
 #include <QFrame>
 #include <QString>
 
-// Forward declarations
-class QVBoxLayout;
+class QHBoxLayout;
 class QPushButton;
-class QComboBox;
 
 class CentralPanel : public QFrame
 {
@@ -21,39 +19,34 @@ public:
     ~CentralPanel();
 
 public slots:
-    // --- Slots Públicos para Atualização de Estado ---
-    // Estes são os slots que a MainWindow conectará aos sinais do RightSidebar.
-    // Quando o modelo ou modo mudar, estas funções serão chamadas.
     void updateForModel(const QString &modelName);
     void updateForMode(const QString &modeName);
 
 private:
-    // Função auxiliar para criar a UI.
     void setupUi();
-
-    // Função central de lógica: atualiza a visibilidade e o estado dos botões.
     void updateButtonStates();
 
-    // --- Variáveis de Estado Interno ---
-    // O painel mantém sua própria cópia do estado atual da aplicação.
+    // Função helper para criar os botões e evitar repetição de código.
+    // ATUALIZAÇÃO: Adicionamos o parâmetro 'toolTip'.
+    QPushButton* createToolButton(const QString &iconPath, const QString &toolTip);
+
     QString m_currentModel;
     QString m_currentMode;
-    bool m_isSpotwayActive; // Futuramente, este estado virá do LeftSidebar.
 
-    // --- Ponteiros para os Widgets da UI ---
-    QVBoxLayout *m_mainLayout;
-    QFrame      *m_innerPanel; // O painel cinza escuro que contém os botões.
+    // Ponteiros para os widgets
+    QFrame      *m_toolbarContainer;
+    QHBoxLayout *m_toolbarLayout;
 
-    // Ponteiros para todos os botões e controles possíveis.
-    QComboBox   *m_coreModelDropdown;
     QPushButton *m_searchInternetButton;
-    QPushButton *m_objectViewerButton;
-    QPushButton *m_distancePreviewButton;
     QPushButton *m_cameraFeedButton;
+    QPushButton *m_objectViewerButton;
+    QPushButton *m_faceViewerButton;
+    QPushButton *m_distancePreviewButton;
     QPushButton *m_segmentationFilterButton;
     QPushButton *m_navigationModeButton;
     QPushButton *m_silentModeButton;
     QPushButton *m_nightVisionButton;
+    QPushButton *m_launchButton;
 };
 
 #endif // CENTRALPANEL_H

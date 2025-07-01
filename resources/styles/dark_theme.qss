@@ -1,172 +1,136 @@
-/* resources/styles/dark_theme.qss */
-/* Folha de Estilos Completa para o Tema Escuro Profissional do TrackieStudio */
+/* =================================================================== */
+/*   TrackieStudio - Folha de Estilos Definitiva (Dark Theme)          */
+/*   Versão Limpa e Consolidada                                        */
+/* =================================================================== */
 
-/* --- 1. ESTILOS GLOBAIS --- */
+
+/* --- 1. GLOBAIS E RESET --- */
 /* Define a base para todos os widgets. */
+
 QWidget {
-    background-color: #000000; /* Fundo principal: Preto */
-    color: #FFFFFF;            /* Cor do texto padrão: Branco */
-    font-family: "Sans-serif"; /* Fonte padrão (usará Arial, Helvetica, etc.) */
+    /* O fundo da janela principal é branco, para a área central. */
+    /* As barras laterais pretas irão sobrescrever esta regra. */
+    background-color: #FFFFFF;
+    color: #000000;
+    font-family: "Segoe UI", "Sans-serif";
     font-size: 13px;
-    border: none;              /* Remove bordas inesperadas */
+    border: none;
 }
 
-/* --- 2. ESTRUTURA PRINCIPAL (LAYOUT) --- */
-QMainWindow {
+QToolTip {
+    background-color: #222222;
+    color: #FFFFFF;
+    border: 1px solid #444444;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+
+/* --- 2. ESTRUTURA PRINCIPAL (PAINÉIS) --- */
+/* Estilos para os três painéis que compõem a aplicação. */
+
+#LeftSidebar, #RightSidebar {
     background-color: #000000;
+    color: #FFFFFF;
 }
 
 #LeftSidebar {
-    background-color: #000000;
-    border-right: 1px solid #FFFFFF;
-}
-
-#CentralPanel {
-    /* A área central tem fundo branco, onde o painel escuro ficará contido. */
-    background-color: #FFFFFF;
+    border-right: 1px solid #333333;
 }
 
 #RightSidebar {
-    background-color: #000000;
-    border-left: 1px solid #FFFFFF;
+    border-left: 1px solid #333333;
 }
 
-/* Painel cinza escuro dentro da área central */
-#InnerPanel {
-    background-color: #222222;
-    border: 1px solid #FFFFFF;
+#CentralPanel {
+    /* Essencial! Deixa o fundo branco da janela principal aparecer. */
+    background-color: transparent;
+}
+
+
+/* --- 3. PAINEL CENTRAL (BARRA DE FERRAMENTAS) --- */
+/* Estilos para a barra de ferramentas branca e seus botões. */
+
+#ToolbarContainer {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 28px;
+}
+
+/* Estilo base para a "hitbox" circular dos botões. */
+#CentralToolButton {
+    background-color: transparent; /* Por padrão, a hitbox é invisível. */
+    border-radius: 20px;           /* Metade do tamanho (40px) para ser um círculo perfeito. */
+}
+
+/* Efeito de hover (cinza-claro) para botões NÃO ATIVOS. */
+/* O fundo circular aparece ao passar o mouse. */
+#CentralToolButton:hover {
+    background-color: #F1F3F4;
+}
+
+/* Efeito ao pressionar (cinza-escuro). */
+#CentralToolButton:pressed {
+    background-color: #D6D9DC;
+}
+
+/* Estilo para quando o botão está ATIVO (ligado). */
+/* O fundo circular fica cinza-escuro e permanece. */
+#CentralToolButton:checked {
+    background-color: #D6D9DC;
+}
+
+/* Estilo para quando o botão está DESABILITADO. */
+#CentralToolButton:disabled {
+    background-color: transparent;
+    opacity: 0.3;
+}
+
+/* Estilo especial para o botão de Lançar. */
+#LaunchButton {
+    background-color: #1a73e8;
+    border-radius: 20px;
+    opacity: 1.0;
+}
+
+#LaunchButton:hover {
+    background-color: #287de8;
+}
+
+#LaunchButton:pressed {
+    background-color: #185abc;
+}
+
+
+/* --- 4. PAINEL ESQUERDO (LEFTSIDEBAR) --- */
+/* Estilos para os componentes dentro da barra lateral esquerda. */
+
+#LeftSidebar QPushButton#ModuleButton {
+    color: #FFFFFF;
+    background-color: #333333;
     border-radius: 8px;
-}
-
-/* --- 3. BOTÕES (QPushButton) --- */
-/* Estilo geral para todos os botões */
-QPushButton {
-    background-color: #444444;
-    border-radius: 5px;
     padding: 10px;
     font-size: 14px;
-    min-height: 20px;
-}
-
-QPushButton:hover {
-    background-color: #555555;
-}
-
-QPushButton:pressed {
-    background-color: #3a3a3a;
-}
-
-QPushButton:disabled {
-    background-color: #2a2a2a;
-    color: #666666;
-}
-
-/* Botões de módulo na barra esquerda */
-#ModuleButton {
     font-weight: bold;
-    text-align: center;
+    text-align: left;
 }
 
-/* Botão de colapsar/expandir */
-#CollapseButton {
-    max-width: 30px;
-    max-height: 30px;
-    border-radius: 15px; /* Deixa o botão circular */
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* --- 4. SELETORES (QComboBox) --- */
-QComboBox {
-    background-color: #333333;
-    border: 1px solid #444444;
-    border-radius: 5px;
-    padding: 8px 10px;
-}
-
-QComboBox:hover {
+#LeftSidebar QPushButton#ModuleButton:hover {
     background-color: #444444;
 }
 
-/* Estilo para a seta do dropdown */
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-left-width: 1px;
-    border-left-color: #444444;
-    border-left-style: solid;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+#LeftSidebar QPushButton#ModuleButton:pressed {
+    background-color: #2a2a2a;
 }
 
-QComboBox::down-arrow {
-    /* COMENTÁRIO: Crie um ícone de seta branca (12x12) e adicione-o aos recursos */
-    /* image: url(:/icons/down_arrow.svg); */
+#CollapseButton {
+    background-color: #444444;
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 15px; /* Círculo */
+    font-size: 16px;
 }
 
-/* Estilo para a lista que aparece ao clicar */
-QComboBox QAbstractItemView {
-    background-color: #333333;
-    color: #FFFFFF;
-    border: 1px solid #555555;
-    selection-background-color: #555555; /* Cor do item selecionado/hover */
-    outline: 0px;/* Remove a borda pontilhada de foco */
-}
-/* --- 5. SLIDERS (QSlider) --- */
-QSlider::groove:horizontal {
-    background: #333333;
-    height: 4px;
-    border-radius: 2px;
-}
-
-QSlider::handle:horizontal {
-    background: #FFFFFF;
-    width: 16px;
-    height: 16px;
-    margin: -6px 0; /* Centraliza o manipulador na ranhura */
-    border-radius: 8px; /* Deixa o manipulador circular */
-}
-
-QSlider::handle:horizontal:hover {
-    background: #E0E0E0; /* Leve brilho no hover */
-}
-
-/* --- 6. TOGGLES (QCheckBox estilizado) --- */
-/* Este é o estilo que transforma um checkbox padrão em um toggle moderno */
-QCheckBox {
-    spacing: 10px; /* Espaço entre o toggle e o texto */
-}
-
-QCheckBox::indicator {
-    width: 40px;
-    height: 20px;
-    background-color: #333333; /* Cor do toggle desligado */
-    border-radius: 10px;
-}
-
-QCheckBox::indicator:unchecked {
-    /* Círculo branco à esquerda */
-    image: url(:/icons/toggle_off.svg); /* Requer um SVG de um círculo branco 16x16 em um fundo 40x20 */
-}
-
-QCheckBox::indicator:checked {
-    background-color: #27ae60; /* Cor verde para ligado */
-    /* Círculo branco à direita */
-    image: url(:/icons/toggle_on.svg); /* Requer um SVG de um círculo branco 16x16 na posição direita */
-}
-
-/* --- 7. RÓTULOS (QLabel) --- */
-/* Estilo para os títulos das seções nas barras laterais */
-#SidebarLabel {
-    color: #CCCCCC;
-    font-weight: bold;
-    font-size: 11px;
-    text-transform: uppercase;
-    padding-top: 10px; /* Espaço acima de cada título de seção */
-}
-
-/* --- 8. BARRA DE FERRAMENTAS INFERIOR --- */
 #BottomToolbar {
     background-color: #FFFFFF;
     border-radius: 5px;
@@ -175,22 +139,91 @@ QCheckBox::indicator:checked {
 #BottomToolbar QPushButton {
     background-color: transparent;
     color: #000000;
-    border: none;
-    /* Ícones devem ser pretos */
 }
 
 #BottomToolbar QPushButton:hover {
-    background-color: #E0E0E0; /* Fundo cinza claro no hover */
+    background-color: #E0E0E0;
 }
 
 
-/* --- 9. BARRAS DE ROLAGEM (QScrollBar) --- */
-/* Para uso futuro em áreas com muito conteúdo */
+/* --- 5. PAINEL DIREITO (RIGHTSIDEBAR) --- */
+/* Estilos para os componentes dentro da barra lateral direita. */
+
+#RightSidebar QLabel {
+    background-color: transparent;
+}
+
+#SidebarTitle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#SidebarLabel {
+    color: #CCCCCC;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* Estilo para todos os QComboBox na barra direita */
+#RightSidebar QComboBox {
+    border: 1px solid #555555;
+    border-radius: 5px;
+    padding: 8px 10px;
+    background-color: #333333;
+}
+
+#RightSidebar QComboBox:hover {
+    border-color: #777777;
+}
+
+#OutputFormatSelector {
+    background-color: #222222;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-left-width: 1px;
+    border-left-color: #555555;
+    border-left-style: solid;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+QComboBox::down-arrow {
+    /* Ícone SVG pode ser adicionado aqui no futuro */
+}
+
+QComboBox QAbstractItemView {
+    background-color: #333333;
+    border: 1px solid #777777;
+    selection-background-color: #555555;
+    outline: none;
+}
+
+
+/* Estilo para o nosso widget ToggleSwitch customizado */
+ToggleSwitch {
+    background-color: #555555; /* Cor quando desligado */
+    border-radius: 12px;
+}
+
+ToggleSwitch:checked {
+    background-color: #FFFFFF; /* Cor quando ligado */
+}
+
+
+/* --- 6. WIDGETS GENÉRICOS --- */
+/* Estilos para widgets que podem aparecer em qualquer lugar. */
+
 QScrollBar:vertical {
     border: none;
     background: #1A1A1A;
     width: 10px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
 }
 QScrollBar::handle:vertical {
     background: #555555;
@@ -202,134 +235,4 @@ QScrollBar::handle:vertical:hover {
 }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
     height: 0px;
-    background: none;
-}
-
-/* --- 10. DICAS DE FERRAMENTA (QToolTip) --- */
-QToolTip {
-    background-color: #222222;
-    color: #FFFFFF;
-    border: 1px solid #444444;
-    padding: 5px;
-    border-radius: 3px;
-}
-
-/* ... (estilos existentes) ... */
-
-/* --- Estilos para a Nova RightSidebar --- */
-
-#SidebarTitle {
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFFFFF;
-}
-
-#SidebarLabel {
-    color: #CCCCCC;
-    font-weight: normal; /* Mais suave que o título */
-    font-size: 13px;
-    margin-top: 10px; /* Espaço acima dos rótulos de seção */
-}
-
-/* Estilo para o seletor de formato de saída */
-#OutputFormatContainer {
-    border: 1px solid #555555;
-    border-radius: 5px;
-}
-
-#OutputFormatContainer QPushButton {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda interna */
-    padding: 8px;
-    font-size: 13px;
-}
-
-/* Estilo para o botão selecionado */
-#OutputFormatContainer QPushButton:checked {
-    background-color: #555555; /* Fundo cinza quando selecionado */
-    color: #FFFFFF;
-    font-weight: bold;
-}
-
-/* Cantos arredondados apenas nas pontas */
-#OutputFormatContainer QPushButton:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-#OutputFormatContainer QPushButton:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-
-/* --- Estilos para a Nova RightSidebar --- */
-
-#SidebarTitle {
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFFFFF;
-}
-
-#SidebarLabel {
-    color: #CCCCCC;
-    font-weight: normal;
-    font-size: 13px;
-    margin-top: 10px;
-}
-
-/* Estilo genérico para os dropdowns de configuração */
-#ConfigSelector {
-    background-color: #444444;
-    padding: 10px;
-}
-
-/* --- ESTILO ATUALIZADO PARA O SELETOR DE FORMATO --- */
-/* Removemos o estilo antigo do #OutputFormatContainer */
-/* e criamos um novo para o nosso QComboBox especial. */
-#OutputFormatSelector {
-    background-color: #333333; /* Fundo mais escuro, como no protótipo */
-    border: 1px solid #555555;
-    border-radius: 8px; /* Cantos bem arredondados */
-    padding: 12px;
-    text-align: left; /* Alinha o texto à esquerda */
-}
-
-/* Estilo para TODOS os QComboBox para um visual consistente */
-QComboBox {
-    border: 1px solid #555555;
-    border-radius: 5px;
-    color: #FFFFFF;
-}
-
-QComboBox:hover {
-    border-color: #777777;
-}
-
-/* Estilo para a seta do dropdown */
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-left-width: 1px;
-    border-left-color: #555555;
-    border-left-style: solid;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-QComboBox::down-arrow {
-    /* No futuro, podemos usar um ícone SVG aqui */
-    /* image: url(:/icons/down_arrow.svg); */
-    width: 12px;
-    height: 12px;
-}
-
-/* Estilo para a lista que aparece ao clicar no dropdown */
-QComboBox QAbstractItemView {
-    background-color: #333333;
-    border: 1px solid #777777;
-    border-radius: 5px;
-    selection-background-color: #555555; /* Cor ao passar o mouse por cima */
-    color: #FFFFFF;
-    padding: 5px;
 }
